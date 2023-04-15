@@ -18,7 +18,7 @@ export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.component('Column', Column);
     nuxtApp.vueApp.component('ColumnGroup', ColumnGroup);
     nuxtApp.vueApp.component('Row', Row);
-    nuxtApp.vueApp.component('InputText', InputText);
+    nuxtApp.vueApp.component('PrimeInputText', InputText);
     nuxtApp.vueApp.component('ContextMenu', ContextMenu);
     nuxtApp.vueApp.component('Breadcrumb', Breadcrumb);
     nuxtApp.vueApp.component('TabMenu', TabMenu);
