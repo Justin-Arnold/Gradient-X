@@ -30,14 +30,8 @@
                     Not a {{isStudent ? 'student' : 'teacher'}}? Click here.
                 </button>
                 <div v-if="!isStudent" class="w-full mt-12">
-                    <div class="w-full text-neutral-900 dark:text-neutral-50">
-                        <label>Email Address</label>
-                        <input class="bg-white shadow-inner shadow-neutral-400 rounded h-8 w-full" />
-                    </div>
-                    <div class="w-full mt-8 text-neutral-900 dark:text-neutral-50">
-                        <label>Password</label>
-                        <input class="bg-white shadow-inner shadow-neutral-400 rounded h-8 w-full" />
-                    </div>
+                    <TextInput label="Email Address" class="mb-10"></TextInput>
+                    <TextInput label="Password"></TextInput>
                     <div class="flex justify-between w-full mt-2">
                         <div class="flex text-neutral-900 dark:text-neutral-50">
                             <input type="checkbox" class="mr-2"/>Save Password
