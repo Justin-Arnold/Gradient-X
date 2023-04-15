@@ -1,0 +1,93 @@
+<script setup lang="ts">
+import { Icon } from '@iconify/vue';
+import assignmentsService from '~/services/assignments';
+
+async function onSave() {
+    const resp: any = await assignmentsService.createNewAssignment(newName.value,newDescription.value, selectedType.value.value)
+    navigateTo(`/assignments/${resp.name}-${resp._id}/responses`)
+}
+
+const newName = ref('');
+const newDescription = ref('');
+
+const assignmentTypes = [
+    {
+        label: 'Automatic',
+        value: 'exam'
+    },
+    {
+        label: 'Manual',
+        value: 'obs'
+    },
+    {
+        label: 'Score Only',
+        value: 'scored'
+    }
+]
+const selectedType = ref({
+        label: 'Automatic',
+        value: 'exam'
+    });
+
+</script>
+
+<template>
+    <div class="rounded-lg bg-neutral-50 p-2 w-full shadow-md">
+        <div class="ml-2">Quick Actions</div>
+        <div class="my-2 h-24 rounded-lg bg-neutral-50 flex gap-2">
+            <ModalButton>
+                <div class="h-full flex flex-col justify-between items-end">
+                    <div class="text-xs">Create Assignment</div>
+                    <Icon icon="mdi:plus" class="text-2xl" />
+                </div>
+                <template #body>
+                    <h3 class="text-lg font-semibold">Create New Assignment</h3>
+                    <hr/>
+                    <div class="h-full flex flex-col gap-2 mt-2">
+                        <div class="flex flex-col">
+                            Name
+                            <InputText v-model="newName" />
+                        </div>
+                        <div class="flex flex-col">
+                            Description (optional)
+                            <InputText v-model="newDescription" />
+                        </div>
+                        <div class="flex flex-col">
+                            Grading Type
+                            <SelectButton :options="assignmentTypes" class="whitespace-nowrap !flex " v-model="selectedType">
+                                <template #option="slotProps">
+                                    <p class="text-sm">{{ slotProps.option.label }}</p>
+                                </template>
+                            </SelectButton>
+                        </div>
+                        <div class="grow flex flex-col justify-end">
+                            <div class="flex justify-end gap-2 pb-6">
+                                <Button label="Cancel" outlined size="small"/>
+                                <Button label="Create" @click="onSave" size="small"/>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </ModalButton>
+            <ModalButton>
+                <div class="h-full flex flex-col justify-between items-end">
+                    <div class="text-xs">Manage Online Access</div>
+                    <Icon icon="ic:round-computer" class="text-2xl" />
+                </div>
+                <template #body>
+                    <div class="text-black">
+                        I am a modal
+                    </div>
+                </template>
+            </ModalButton>
+        </div>
+    </div>
+</template>
+
+<style scoped>
+
+:deep(.p-button) {
+    @apply w-1/3 px-4 py-2 grid place-items-center
+}
+
+</style>
