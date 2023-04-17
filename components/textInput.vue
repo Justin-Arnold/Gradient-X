@@ -1,22 +1,30 @@
+<script lang="ts">
+export default {
+    inheritAttrs: false
+}
+</script>
+
 <script setup lang="ts">
 
 interface props {
     label: string,
-    id: string,
 }
 defineProps<props>()
 
 </script>
 
 <template>
-    <div class="w-full text-neutral-900 dark:text-neutral-50 flex flex-col p-float-label">
-        <PrimeInputText class="w-full !p-2" />
+    <div class="p-float-label mt-2 w-full">
+        <PrimeInputText class="w-full" v-bind="$attrs"/>
         <label>{{label}}</label>
     </div>
 </template>
 
 <style>
-.p-inputtext {
-    @apply !p-2;
+
+.p-float-label input.p-filled ~ label,
+.p-float-label input:focus ~ label {
+    @apply !-ml-2;
 }
+
 </style>
