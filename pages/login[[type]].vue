@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useSessionStore } from '~/stores/session';
-import { storeToRefs }  from 'pinia'
 
 definePageMeta({
     validate: async (route) => {
@@ -11,7 +10,6 @@ definePageMeta({
 
 const router = useRouter()
 const sessionStore = useSessionStore()
-const { lastLoginType, isAuthenticated } = storeToRefs(sessionStore)
 const { login } = sessionStore
 
 const teacherEmail = ref('')
@@ -25,28 +23,10 @@ function changeLoginType() {
     }
 }
 
-function pseudoLogin() {
-    if (isStudent.value) {
-        lastLoginType.value = 'student'
-        navigateTo('/student')
-    } else {
-        lastLoginType.value = 'teacher'
-        navigateTo('/home')
-    }
-}
-
-
-
 const isStudent = computed(() => {
     const route = useRoute()
     return route.params.type === 'Student'
 })
-
-const authenticate = () => {
-    isAuthenticated.value = true
-}
-
-
 </script>
 
 <template>
@@ -68,7 +48,7 @@ const authenticate = () => {
             </div>
             <div class="flex flex-col gap-1 mb-10">
                 <h2  class="text-3xl font-bold text-slate-800">
-                    Log in to your {{false ? 'student' : 'teacher'}} account.
+                    Log in to your {{isStudent ? 'student' : 'teacher'}} account.
                 </h2>
                 <p class="text-neutral-600 text-">Don't have a teacher account? <NuxtLink class="text-blue-600">Sign Up.</NuxtLink></p>
             </div>
