@@ -24,18 +24,28 @@
                 <Column field="date" header="Date"></Column>
             </DataTable>
             <template #drawer>
-                <div class="pl-8 my-2 bg-blue-200 text-blue-700 font-semibold py-2">
-                    Current Assignments
+                <div class="overflow-hidden px-2">
+                    <h3 class="text-lg">Filters</h3>
+                    <hr>
+                    <div class="p-float-label mt-12">
+                        <PrimeDropdown v-model="selectedView" :options="viewOptions" optionLabel="label" optionValue="value" class="w-full"></PrimeDropdown>
+                        <label>View</label>
+                    </div>
+                    <div class="p-float-label mt-8">
+                        <PrimeDropdown v-model="selectedOwner" :options="ownerOptions" optionLabel="label" optionValue="value" class="w-full"></PrimeDropdown>
+                        <label>Owners</label>
+                    </div>
+                    <div class="p-float-label mt-8">
+                        <PrimeDropdown v-model="selectedLabel" :options="labelOptions" optionLabel="label" optionValue="value" class="w-full"></PrimeDropdown>
+                        <label>Labels</label>
+                    </div>
+                    <div class="p-float-label mt-8">
+                        <PrimeDropdown v-model="selectedTerm" :options="termOptions" optionLabel="label" optionValue="value" class="w-full"></PrimeDropdown>
+                        <label>Term</label>
+                    </div>
+
                 </div>
-                <div class="pl-8 my-2">
-                    Student Portal
-                </div>
-                <div class="pl-8 my-2">
-                    Archive
-                </div>
-                <div class="pl-8 my-2">
-                    Trash
-                </div>
+
             </template>
         </NuxtLayout>
         <NuxtPage></NuxtPage>
@@ -50,6 +60,28 @@ import { storeToRefs } from 'pinia';
 import { FilterMatchMode } from 'primevue/api';
 
 
+const selectedView = ref('current');
+const viewOptions = ref([
+    {label: 'Current Assignments', value: 'current'},
+    {label: 'Student Portal', value: 'student'},
+    {label: 'Archive', value: 'archive'},
+    {label: 'Trash', value: 'trash'}
+])
+const selectedOwner = ref('anyone');
+const ownerOptions = ref([
+    {label: 'Owned by anyone', value: 'anyone'},
+    {label: 'Owned by me', value: 'me'},
+    {label: 'Not owned by me', value: 'others'},
+])
+const selectedLabel = ref('all');
+const labelOptions = ref([
+    {label: 'All', value: 'all'},
+])
+const selectedTerm = ref('current');
+const termOptions = ref([
+    {label: 'Current Terms', value: 'current'},
+    {label: 'All Terms', value: 'all'},
+])
 
 const filters = ref({
     global: { value: null, matchMode: FilterMatchMode.CONTAINS },

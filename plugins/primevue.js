@@ -10,6 +10,7 @@ import ContextMenu from 'primevue/contextmenu';
 import Breadcrumb from 'primevue/breadcrumb';
 import TabMenu from 'primevue/tabmenu';
 import SelectButton from 'primevue/selectbutton';
+import Dropdown from 'primevue/dropdown';
 
 export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.use(PrimeVue, {ripple: true});
@@ -23,5 +24,6 @@ export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.component('Breadcrumb', Breadcrumb);
     nuxtApp.vueApp.component('TabMenu', TabMenu);
     nuxtApp.vueApp.component('SelectButton', SelectButton);
+    nuxtApp.vueApp.component('PrimeDropdown', Dropdown);
     //other components that you need
 });
