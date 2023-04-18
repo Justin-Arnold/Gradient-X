@@ -1,51 +1,61 @@
 <template>
     <NuxtLayout name="staff-portal">
-        <ContextMenu ref="cm" :model="menuModel" />
-        <DataTable v-if="!pending" :value="assignments" v-model:filters="tableFilter" selectionMode="multiple" v-model:selection="selectedRows" contextMenu v-model:contextMenuSelection="selectedRow" @rowContextmenu="onRowContextMenu" paginator :rows="20" scrollable scrollHeight="100%" class="flex flex-col max-h-full">
-            <template #header>
-                <div class="flex justify-end -m-2">
-                    <span class="p-input-icon-left">
-                        <i class="pi pi-search" />
-                        <PrimeInputText v-model="tableFilter['global'].value" :placeholder="`Search ${assignments.length} Assignments`" class="h-8 w-80"/>
-                    </span>
-                </div>
-            </template>
-            <Column field="name" header="Name">
-                <template #body="slotProps">
-                    <NuxtLink :to="`/assignments/${slotProps.data.name}-${slotProps.data.key}/responses`" class="text-blue-500">{{slotProps.data.name}}</NuxtLink>
+        <div class="rounded-lg bg-neutral-50 p-2 shadow-md h-full">
+            <ContextMenu ref="cm" :model="menuModel" />
+            <DataTable v-if="!pending" :value="assignments" v-model:filters="tableFilter" selectionMode="multiple" v-model:selection="selectedRows" contextMenu v-model:contextMenuSelection="selectedRow" @rowContextmenu="onRowContextMenu" paginator :rows="20" scrollable scrollHeight="100%" class="flex flex-col max-h-full">
+                <template #header>
+                    <div class="flex justify-between -m-2 items-center">
+                        <Button @click="toggleFilterOverlayPanel" icon="pi pi-angle-down" class="h-8" label="Filters"></Button>
+                        <PrimeOverlayPanel ref="filterOverlayPanel">
+                            <div class="">
+                                <div class="overflow-hidden px-2">
+                                    <h3 class="text-lg">Filters</h3>
+                                    <hr>
+                                    <div class="p-float-label mt-12">
+                                        <PrimeDropdown v-model="filters.view" :options="filterOptions.view" optionLabel="label" optionValue="value" class="w-full"></PrimeDropdown>
+                                        <label>View</label>
+                                    </div>
+                                    <div class="p-float-label mt-8">
+                                        <PrimeDropdown v-model="filters.owner" :options="filterOptions.owner" optionLabel="label" optionValue="value" class="w-full"></PrimeDropdown>
+                                        <label>Owners</label>
+                                    </div>
+                                    <div class="p-float-label mt-8">
+                                        <PrimeDropdown v-model="filters.label" :options="filterOptions.label" optionLabel="label" optionValue="value" class="w-full"></PrimeDropdown>
+                                        <label>Labels</label>
+                                    </div>
+                                    <div class="p-float-label mt-8">
+                                        <PrimeDropdown v-model="filters.term" :options="filterOptions.term" optionLabel="label" optionValue="value" class="w-full"></PrimeDropdown>
+                                        <label>Term</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </PrimeOverlayPanel>
+                        <div class="h-full items-center">
+                            <span class="p-input-icon-left">
+                                <i class="pi pi-search" />
+                                <PrimeInputText v-model="tableFilter['global'].value" :placeholder="`Search ${assignments.length} Assignments`" class="h-8 w-80"/>
+                            </span>
+                        </div>
+                    </div>
                 </template>
-            </Column>
-            <Column field="assignment_type" header="Type"></Column>
-            <Column field="author" header="Author"></Column>
-            <Column field="length" header="Length"></Column>
-            <Column field="turnedIn" header="Turned In"></Column>
-            <Column field="average" header="Average Score"></Column>
-            <Column field="date" header="Date"></Column>
-        </DataTable>
-        <div v-else>
-            <p>Loading...</p>
+                <Column field="name" header="Name">
+                    <template #body="slotProps">
+                        <NuxtLink :to="`/assignments/${slotProps.data.name}-${slotProps.data.key}/responses`" class="text-blue-500">{{slotProps.data.name}}</NuxtLink>
+                    </template>
+                </Column>
+                <Column field="assignment_type" header="Type"></Column>
+                <Column field="author" header="Author"></Column>
+                <Column field="length" header="Length"></Column>
+                <Column field="turnedIn" header="Turned In"></Column>
+                <Column field="average" header="Average Score"></Column>
+                <Column field="date" header="Date"></Column>
+            </DataTable>
+            <div v-else>
+                <p>Loading...</p>
+            </div>
         </div>
         <template #SideMenu>
-                <div class="overflow-hidden px-2">
-                    <h3 class="text-lg">Filters</h3>
-                    <hr>
-                    <div class="p-float-label mt-12">
-                        <PrimeDropdown v-model="filters.view" :options="filterOptions.view" optionLabel="label" optionValue="value" class="w-full"></PrimeDropdown>
-                        <label>View</label>
-                    </div>
-                    <div class="p-float-label mt-8">
-                        <PrimeDropdown v-model="filters.owner" :options="filterOptions.owner" optionLabel="label" optionValue="value" class="w-full"></PrimeDropdown>
-                        <label>Owners</label>
-                    </div>
-                    <div class="p-float-label mt-8">
-                        <PrimeDropdown v-model="filters.label" :options="filterOptions.label" optionLabel="label" optionValue="value" class="w-full"></PrimeDropdown>
-                        <label>Labels</label>
-                    </div>
-                    <div class="p-float-label mt-8">
-                        <PrimeDropdown v-model="filters.term" :options="filterOptions.term" optionLabel="label" optionValue="value" class="w-full"></PrimeDropdown>
-                        <label>Term</label>
-                    </div>
-                </div>
+
             </template>
     </NuxtLayout>
 </template>
@@ -193,6 +203,11 @@ const assignments = computed(() => {
     return [];
 });
 
+const filterOverlayPanel = ref(null);
+const toggleFilterOverlayPanel = (event: any) => {
+    if(!filterOverlayPanel.value) return;
+    (filterOverlayPanel.value as any).toggle(event);
+};
 
 
 </script>

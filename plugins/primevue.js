@@ -11,6 +11,7 @@ import Breadcrumb from 'primevue/breadcrumb';
 import TabMenu from 'primevue/tabmenu';
 import SelectButton from 'primevue/selectbutton';
 import Dropdown from 'primevue/dropdown';
+import OverlayPanel from 'primevue/overlaypanel';
 
 export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.use(PrimeVue, {ripple: true});
@@ -25,5 +26,6 @@ export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.component('TabMenu', TabMenu);
     nuxtApp.vueApp.component('SelectButton', SelectButton);
     nuxtApp.vueApp.component('PrimeDropdown', Dropdown);
+    nuxtApp.vueApp.component('PrimeOverlayPanel', OverlayPanel);
     //other components that you need
 });
