@@ -1,6 +1,6 @@
 <template>
     <div class="h-full flex">
-        <div class="bg-blue-500 p-2 h-full w-16 flex flex-col items-center z-[999]">
+        <div class="bg-blue-500 p-2 h-full w-16 flex flex-col items-center">
             <nuxt-img
                 src="https://gcdnb.pbrd.co/images/t2Dd3ktfvy1R.png?o=1"
                 class="rounded aspect-square shadow shadow-blue-800"
@@ -26,7 +26,7 @@
                 </div>
             </div>
         </div>
-        <div class="h-full relative z-[998]" :class="isOpen ? 'w-96' : 'w-0'">
+        <div class="h-full relative z-[2]" :class="isOpen ? 'w-96' : 'w-0'">
             <div v-show="isOpen" class="h-full bg-slate-900">
                 <div class="h-full bg-blue-500/60">
                     <div class="text-white text-xl flex h-14 items-center ml-4">
@@ -39,7 +39,7 @@
                 <Icon name="mdi:arrow-left" @click="isOpen = !isOpen"></Icon>
             </div>
         </div>
-        <div class="grow overflow-hidden h-full w-full bg-slate-200 p-8">
+        <div class="grow overflow-hidden h-full bg-slate-200 p-8">
             <slot></slot>
         </div>
     </div>
