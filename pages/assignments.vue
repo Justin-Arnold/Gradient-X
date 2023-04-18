@@ -1,6 +1,6 @@
 <template>
     <NuxtLayout name="staff-portal">
-        <div v-if="!isNestedRoute" class="rounded-lg bg-neutral-50 p-2 shadow-md max-h-full overflow-hidden">
+        <div v-if="!isNestedRoute" class="rounded-lg bg-neutral-50 p-2 h-full shadow-md overflow-hidden">
             <ContextMenu ref="cm" :model="menuModel" />
             <DataTable v-if="!pending" :value="assignments" v-model:filters="tableFilter" selectionMode="multiple" v-model:selection="selectedRows" contextMenu v-model:contextMenuSelection="selectedRow" @rowContextmenu="onRowContextMenu" paginator :rows="20" scrollable scrollHeight="100%" class="flex flex-col max-h-full">
                 <template #header>
