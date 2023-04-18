@@ -12,6 +12,7 @@
                     :to="each.route"
                     class="text-white grid place-items-center w-full aspect-square"
                     active-class="bg-slate-200/30 rounded-xl"
+                    v-tooltip="each.name"
                 >
                     <Icon :name="each.icon" size="28px"></Icon>
                 </NuxtLink>
