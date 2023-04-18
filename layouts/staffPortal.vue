@@ -55,7 +55,7 @@ interface routeItems {
     icon: string;
     route: string;
 }
-const isOpen = ref(true)
+const isOpen = ref(false)
 
 const topLevelRoutes = [
     {
