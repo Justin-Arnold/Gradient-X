@@ -1,79 +1,54 @@
 <template>
-    <NuxtLayout name="data-view">
-        <n-data-table
-            v-if="!isNestedRoute"
-            :columns="columns"
-            :data="allAssignments || []"
-            :pagination="false"
-            :bordered="true"
-        />
-        <NuxtPage>
-        </NuxtPage>
+    <NuxtLayout name="staff-portal">
+        <h1 class="text-4xl flex items-center gap-2">Admin</h1>
+        <TabMenu :model="customTabs" class="mb-4 border-b border-b-slate-400 pb-[0px]"></TabMenu>
+        <NuxtPage></NuxtPage>
     </NuxtLayout>
 </template>
 
 <script setup lang="ts">
-import assignmentsService from '~/services/assignments';
-import { useSessionStore } from '~/stores/session';
-import { storeToRefs } from 'pinia';
-
-const sessionStore = useSessionStore();
-const {
-    userId
-} = storeToRefs(sessionStore)
-
-const allAssignments = ref([]);
-
-definePageMeta({
-    layout: 'staff-portal',
-})
-
-const isNestedRoute = computed(() => {
-    const route = useRoute()
-    return route.path !== '/assignments'
-})
-
-onBeforeMount(async () => {
-    if(!userId.value) return
-    const resp: any= await assignmentsService.getAllAssignments(userId.value)
-    allAssignments.value = resp.filteredItems.map((assignment: any) => {
-        console.log(new Date(assignment.date))
-        return {
-            name: assignment.name,
-            key: assignment._id,
-            assignment_type: assignment.assignment_type,
-            author: assignment.author.first,
-            length: assignment.length,
-            turnedIn: assignment.stats.count || 0,
-            average: ((assignment.stats.percentage_avg as number * 100) || 0).toFixed(0)+'%',
-            date: JSON.stringify(new Date(assignment.date)),
-
-        }
-    })
-    console.log(allAssignments.value)
-})
-
-const columns = [
-    {type: 'selection', title: 'no', rowKey: 'no'},
-    {type: 'text', title: 'Name', key: 'name',
-        render (row: any) {
-            return h(
-                'span',
-                {
-                    class: 'text-blue-500 cursor-pointer',
-                    onClick: () => {
-                        navigateTo(`/assignments/${row.key}`)
-                    }
-                }, row.name
-            )
-        }},
-    {type: 'text', title: 'Type', key: 'assignment_type'},
-    {type: 'text', title: 'Author', key: 'author'},
-    {type: 'text', title: 'Length', key: 'length'},
-    {type: 'text', title: 'Turned In', key: 'turnedIn'},
-    {type: 'text', title: 'Average Score', key: 'average'},
-    {type: 'text', title: 'Due Date', key: 'date'}
-]
-
+const route = useRoute()
+const basePath = route.fullPath.split('/').slice(0, -1).join('/')
+const customTabs = ref([
+        {
+            label: 'Schools',
+            to: `/admin/schools`
+        },
+        {
+            label: 'Classes',
+            to: `/admin/classes`
+        },
+        {
+            label: 'Students',
+            to: `/admin/students`
+        },
+        {
+            label: 'Teachers',
+            to: `/admin/teachers`
+        },
+        {
+            label: 'Schools',
+            to: '/admin/accessGroups'
+        },
+        {
+            label: 'More',
+            to: `/admin/more`
+        },
+])
 
 </script>
+
+<style>
+    .p-tabmenu,
+    .p-tabmenu-nav,
+    .p-tabmenuitem,
+    .p-menuitem-link,
+    .p-menuitem-text,
+    .p-tabmenuitem-icon {
+        background: transparent !important;
+    }
+
+    .p-tabmenu .p-tabmenu-nav .p-tabmenuitem .p-menuitem-link {
+        border-width: 0 0 3px 0 !important;
+    }
+</style>
