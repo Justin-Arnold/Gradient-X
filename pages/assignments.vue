@@ -1,32 +1,31 @@
 <template>
-    <div class="h-full">
-        <NuxtLayout name="data-view" v-if="!isNestedRoute">
-            <ContextMenu ref="cm" :model="menuModel" />
-            <DataTable v-if="!pending" :value="assignments" v-model:filters="tableFilter" selectionMode="multiple" v-model:selection="selectedRows" contextMenu v-model:contextMenuSelection="selectedRow" @rowContextmenu="onRowContextMenu" paginator :rows="20" scrollable scrollHeight="100%" class="flex flex-col max-h-full">
-                <template #header>
-                    <div class="flex justify-end -m-2">
-                        <span class="p-input-icon-left">
-                            <i class="pi pi-search" />
-                            <PrimeInputText v-model="tableFilter['global'].value" :placeholder="`Search ${assignments.length} Assignments`" class="h-8 w-80"/>
-                        </span>
-                    </div>
+    <NuxtLayout name="staff-portal">
+        <ContextMenu ref="cm" :model="menuModel" />
+        <DataTable v-if="!pending" :value="assignments" v-model:filters="tableFilter" selectionMode="multiple" v-model:selection="selectedRows" contextMenu v-model:contextMenuSelection="selectedRow" @rowContextmenu="onRowContextMenu" paginator :rows="20" scrollable scrollHeight="100%" class="flex flex-col max-h-full">
+            <template #header>
+                <div class="flex justify-end -m-2">
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search" />
+                        <PrimeInputText v-model="tableFilter['global'].value" :placeholder="`Search ${assignments.length} Assignments`" class="h-8 w-80"/>
+                    </span>
+                </div>
+            </template>
+            <Column field="name" header="Name">
+                <template #body="slotProps">
+                    <NuxtLink :to="`/assignments/${slotProps.data.name}-${slotProps.data.key}/responses`" class="text-blue-500">{{slotProps.data.name}}</NuxtLink>
                 </template>
-                <Column field="name" header="Name">
-                    <template #body="slotProps">
-                        <NuxtLink :to="`/assignments/${slotProps.data.name}-${slotProps.data.key}/responses`" class="text-blue-500">{{slotProps.data.name}}</NuxtLink>
-                    </template>
-                </Column>
-                <Column field="assignment_type" header="Type"></Column>
-                <Column field="author" header="Author"></Column>
-                <Column field="length" header="Length"></Column>
-                <Column field="turnedIn" header="Turned In"></Column>
-                <Column field="average" header="Average Score"></Column>
-                <Column field="date" header="Date"></Column>
-            </DataTable>
-            <div v-else>
-                <p>Loading...</p>
-            </div>
-            <template #drawer>
+            </Column>
+            <Column field="assignment_type" header="Type"></Column>
+            <Column field="author" header="Author"></Column>
+            <Column field="length" header="Length"></Column>
+            <Column field="turnedIn" header="Turned In"></Column>
+            <Column field="average" header="Average Score"></Column>
+            <Column field="date" header="Date"></Column>
+        </DataTable>
+        <div v-else>
+            <p>Loading...</p>
+        </div>
+        <template #SideMenu>
                 <div class="overflow-hidden px-2">
                     <h3 class="text-lg">Filters</h3>
                     <hr>
@@ -48,9 +47,7 @@
                     </div>
                 </div>
             </template>
-        </NuxtLayout>
-        <NuxtPage></NuxtPage>
-    </div>
+    </NuxtLayout>
 </template>
 
 <script setup lang="ts">;

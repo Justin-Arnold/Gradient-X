@@ -1,14 +1,61 @@
 <template>
-    <div class="flex h-screen w-screen overflow-hidden bg-slate-200">
-        <leftNav :model="topLevelRoutes"></leftNav>
-        <div class="h-full grow overflow-hidden">
+    <div class="h-full flex">
+        <div class="bg-blue-500 p-2 h-full w-16 flex flex-col items-center z-[999]">
+            <nuxt-img
+                src="https://gcdnb.pbrd.co/images/t2Dd3ktfvy1R.png?o=1"
+                class="rounded aspect-square shadow shadow-blue-800"
+            />
+            <nav class="flex flex-col w-full gap-2 mt-12">
+                <NuxtLink
+                    v-for="each, index in topLevelRoutes"
+                    :key="index"
+                    :to="each.route"
+                    class="text-white grid place-items-center w-full aspect-square"
+                    active-class="bg-slate-200/30 rounded-xl"
+                >
+                    <Icon :name="each.icon" size="28px"></Icon>
+                </NuxtLink>
+            </nav>
+            <div class="flex flex-col grow">
+                <div class="grow"></div>
+                <div
+                    title="Log Out"
+                    @click="logout"
+                    class="cursor-pointer bg-white text-stone-500 text-lg text-light aspect-square px-1 grid place-items-center rounded-full mb-2">
+                    JA
+                </div>
+            </div>
+        </div>
+        <div class="h-full relative z-[998]" :class="isOpen ? 'w-96' : 'w-0'">
+            <div v-show="isOpen" class="h-full bg-slate-900">
+                <div class="h-full bg-blue-500/60">
+                    <div class="text-white text-xl flex h-14 items-center ml-4">
+                        {{$route.meta.title}}
+                    </div>
+                    <slot name="SideMenu"></slot>
+                </div>
+            </div>
+            <div class="absolute text-white bg-red-500 top-1/2 right-0 translate-x-[90%] z-[-1] w-6 rounded-r hover:translate-x-full transition-all duration-200 ease-in-out flex justify-end h-8 items-center pr-1">
+                <Icon name="mdi:arrow-left" @click="isOpen = !isOpen"></Icon>
+            </div>
+        </div>
+        <div class="grow overflow-hidden h-full w-full bg-slate-200 p-8">
             <slot></slot>
         </div>
     </div>
-
 </template>
 
 <script setup lang="ts">
+import { useSessionStore  } from '~~/stores/session';
+
+const { logout } = useSessionStore();
+
+interface routeItems {
+    name: string;
+    icon: string;
+    route: string;
+}
+const isOpen = ref(true)
 
 const topLevelRoutes = [
     {
@@ -47,5 +94,13 @@ const topLevelRoutes = [
         route: '/admin'
     }
 ]
+
+const route =  useRoute()
+const home = computed(() => {
+    const customTitle = route.meta.title || null;
+    return {
+        label: customTitle as string || '',
+    }
+});
 
 </script>
