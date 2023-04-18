@@ -80,14 +80,14 @@ const topLevelRoutes = [
         route: '/students'
     },
     {
-        name: 'Reports',
-        icon: 'mdi:graph-bar',
-        route: '/reports'
-    },
-    {
         name: 'Teachers',
         icon: 'mdi:teacher',
         route: '/teachers'
+    },
+    {
+        name: 'Reports',
+        icon: 'mdi:graph-bar',
+        route: '/reports'
     },
     {
         name: 'Admin',
