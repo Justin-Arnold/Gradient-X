@@ -1,6 +1,6 @@
 <template>
     <NuxtLayout name="staff-portal">
-        <div class="rounded-lg bg-neutral-50 p-2 shadow-md h-full">
+        <div v-if="!isNestedRoute" class="rounded-lg bg-neutral-50 p-2 shadow-md max-h-full overflow-hidden">
             <ContextMenu ref="cm" :model="menuModel" />
             <DataTable v-if="!pending" :value="assignments" v-model:filters="tableFilter" selectionMode="multiple" v-model:selection="selectedRows" contextMenu v-model:contextMenuSelection="selectedRow" @rowContextmenu="onRowContextMenu" paginator :rows="20" scrollable scrollHeight="100%" class="flex flex-col max-h-full">
                 <template #header>
@@ -54,6 +54,7 @@
                 <p>Loading...</p>
             </div>
         </div>
+        <NuxtPage></NuxtPage>
         <template #SideMenu>
 
             </template>
@@ -191,6 +192,7 @@ const assignments = computed(() => {
         return data.value.filteredItems.map((item) => {
             return {
                 name: item.name,
+                key: item._id,
                 assignment_type: item.assignment_type,
                 author: item.author.first.slice(0,1).toUpperCase() + item.author.last.slice(0, 1).toUpperCase(),
                 length: item.length,
