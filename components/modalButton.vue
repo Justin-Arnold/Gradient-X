@@ -1,7 +1,7 @@
 <template>
 
     <div
-      class="bg-gradient-to-r from-blue-400 to-blue-600 text-white p-2 rounded cursor-pointer h-full aspect-square"
+      class="bg-sky-500 text-white p-2 rounded cursor-pointer h-full aspect-square"
       @click="toggle"
       ref="button"
       :class="{ 'animate-expand': isModalOpen, 'fixed z-[9999]': isModalOpen }"
