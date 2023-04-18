@@ -1,6 +1,6 @@
 <template>
     <div class="h-full flex">
-        <div class="bg-blue-500 p-2 h-full w-16 flex flex-col items-center">
+        <div class="bg-sky-500 p-2 h-full w-16 flex flex-col items-center z-[998]">
             <nuxt-img
                 src="https://gcdnb.pbrd.co/images/t2Dd3ktfvy1R.png?o=1"
                 class="rounded aspect-square shadow shadow-blue-800"
@@ -26,10 +26,10 @@
                 </div>
             </div>
         </div>
-        <div class="h-full relative z-[2]" :class="isOpen ? 'w-96' : 'w-0'">
-            <div v-show="isOpen" class="h-full bg-slate-900">
-                <div class="h-full bg-blue-500/60">
-                    <div class="text-white text-xl flex h-14 items-center ml-4">
+        <div class="h-full relative z-[2]" :class="isOpen ? 'w-80' : 'w-0'">
+            <div v-show="isOpen" class="h-full bg-sky-600 text-white px-4">
+                <div class="h-full">
+                    <div class="text-white font-semibold text-xl flex h-16 items-center mb-4">
                         {{$route.meta.title}}
                     </div>
                     <slot name="SideMenu"></slot>
