@@ -1,7 +1,7 @@
 <template>
 
     <div
-      class="bg-sky-500 text-white p-2 rounded cursor-pointer h-full aspect-square"
+      class="bg-sky-500 dark:bg-slate-600 text-white p-2 rounded cursor-pointer h-full aspect-square"
       @click="toggle"
       ref="button"
       :class="{ 'animate-expand': isModalOpen, 'fixed z-[9999]': isModalOpen }"
@@ -14,7 +14,7 @@
       </div>
     </div>
     <div v-if="isModalOpen" class="h-full aspect-square bg-neutral-200 shadow-inner shadow-neutral-600 rounded">.</div>
-    <div v-if="isModalOpen" class="fixed bg-neutral-800/70 h-screen w-screen overflow-hidden top-0 left-0 z-[9998]"></div>
+    <div v-if="isModalOpen" class="fixed bg-slate-800/70 dark:bg-black/60 h-screen w-screen overflow-hidden top-0 left-0 z-[9998]"></div>
   </template>
 
   <script setup>

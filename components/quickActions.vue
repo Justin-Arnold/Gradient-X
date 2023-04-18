@@ -32,9 +32,9 @@ const selectedType = ref({
 </script>
 
 <template>
-    <div class="rounded-lg bg-neutral-50 p-2 w-full shadow-md">
-        <div class="ml-2">Quick Actions</div>
-        <div class="my-2 h-24 rounded-lg bg-neutral-50 flex gap-2">
+    <div class="rounded-lg bg-neutral-50 dark:bg-slate-900 p-2 w-full shadow-md">
+        <div class="ml-2 dark:text-slate-50">Quick Actions</div>
+        <div class="my-2 h-24 rounded-lg  flex gap-2">
             <ModalButton>
                 <div class="h-full flex flex-col justify-between items-end">
                     <div class="text-xs">Create Assignment</div>

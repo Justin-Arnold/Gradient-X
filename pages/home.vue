@@ -1,7 +1,7 @@
 <template>
     <NuxtLayout name="staff-portal">
         <div class="flex flex-col gap-4">
-            <p class="text-4xl">Welcome, Justin!</p>
+            <p class="text-4xl dark:text-slate-50">Welcome, Justin!</p>
             <QuickActions></QuickActions>
         </div>
         <template #SideMenu>
