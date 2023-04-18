@@ -1,6 +1,6 @@
 <template>
     <div class="h-full">
-        <NuxtLayout name="data-view">
+        <NuxtLayout name="data-view" v-if="!isNestedRoute">
             <ContextMenu ref="cm" :model="menuModel" />
             <DataTable :value="allSections" v-model:filters="filters" selectionMode="multiple" v-model:selection="selectedRows" contextMenu v-model:contextMenuSelection="selectedRow" @rowContextmenu="onRowContextMenu" paginator :rows="20" scrollable scrollHeight="100%" class="flex flex-col h-full">
                 <template #header>
@@ -18,16 +18,16 @@
                 </Column>
                 <Column field="students" header="Students"></Column>
             </DataTable>
-            <NuxtPage>
-            </NuxtPage>
+            <template #drawer>
+                <div>test</div>
+                <assignments-filter></assignments-filter>
+            </template>
         </NuxtLayout>
+        <NuxtPage></NuxtPage>
     </div>
 </template>
 
 <script setup lang="ts">
-import sectionsService from '~/services/sections';
-import { useSessionStore } from '~/stores/session';
-import { storeToRefs } from 'pinia';
 import { FilterMatchMode } from 'primevue/api';
 
 
@@ -39,10 +39,6 @@ const onRowContextMenu = (event: any) => {
     cm.value.show(event.originalEvent);
 };
 
-const sessionStore = useSessionStore();
-const {
-    userId
-} = storeToRefs(sessionStore)
 
 const allSections = ref([]);
 const cm = ref();
@@ -65,17 +61,38 @@ const isNestedRoute = computed(() => {
     return route.path !== '/classes'
 })
 
-onBeforeMount(async () => {
-    if(!userId.value) return
-    const resp: any= await sectionsService.getAllSections()
-    //sort out sections with no name
-    const filteredItems = resp.filteredItems.filter((section: any) => section.name)
-    allSections.value = filteredItems.map((section: any) => {
-        return {
-            name: `${section.name} (${section.period})`,
-            key: section._id,
-            students: section.num_students || 0,
+const {data, pending, refresh, error} = useFetch('http://localhost:3000/api3/listReport', {
+    method: 'POST',
+    credentials: 'include',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+        limit: 100,
+        lng: 'en',
+        sortDir: 1,
+        sortKey: 'date',
+        reports: {
+            overall: true
+        },
+        list: {
+            sectionOwned: 'only',
+            term: 'current',
+            type: 'section'
         }
-    })
+    }),
+})
+
+watch(data as Ref<any>, (newData) => {
+    console.log(newData.filteredItems)
+    if (newData.filteredItems) {
+        allSections.value = newData.filteredItems.filter((section: any) => section.name).map((section: any) => {
+            return {
+                name: `${section.name} (${section.period})`,
+                key: section._id,
+                students: section.num_students || 0,
+            }
+        })
+    }
 })
 </script>
