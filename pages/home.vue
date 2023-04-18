@@ -3,18 +3,19 @@
         <div class="flex flex-col gap-4">
             <p class="text-4xl">Welcome, Justin!</p>
             <QuickActions></QuickActions>
-            <div class="rounded-lg bg-neutral-50 p-2 w-1/2">
-                Recent Submissions
-                <div class="h-fit max-h-[200px] rounded-lg p-2 flex flex-col gap-2 overflow-auto">
-                    <div v-for="each, index in recentSubmissions" :key="index" class="p-2 bg-blue-300 rounded text-slate-800 flex justify-between">
-                        <div><strong>Name:</strong> {{ each.name }}</div>
-                        <div><strong>Test:</strong> Math Quiz 4</div>
-                        <div><strong>Time:</strong> &lt; 1 hour ago</div>
-                    </div>
+        </div>
+        <template #SideMenu>
+            <div class="flex flex-col gap-6 px-4">
+                <div class="text-2xl flex items-center gap-2 pl-2 py-1 rounded" :class="{' bg-sky-300/50': true}">
+                    <Icon name="ic:round-dashboard"></Icon>
+                    Dashboard
+                </div>
+                <div class="text-2xl flex items-center gap-2 pl-2 py-1 rounded" :class="{' bg-sky-300/50': false}">
+                    <Icon name="material-symbols:temp-preferences-custom"></Icon>
+                    Customize
                 </div>
             </div>
-        </div>
-        <template #SideMenu>test</template>
+        </template>
     </NuxtLayout>
 </template>
 
