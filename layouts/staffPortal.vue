@@ -2,7 +2,6 @@
     <div class="flex h-screen w-screen overflow-hidden bg-slate-200">
         <leftNav :model="topLevelRoutes"></leftNav>
         <div class="h-full grow overflow-hidden">
-            <TopNav></TopNav>
             <slot></slot>
         </div>
     </div>
