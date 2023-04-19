@@ -10,7 +10,6 @@
   },
   "devDependencies": {
     "@bg-dev/nuxt-naiveui": "^1.0.9",
-    "@gradecam/component-library": "^1.7.6",
     "@nuxt/image-edge": "^1.0.0-28008586.381b906",
     "@nuxtjs/tailwindcss": "^6.6.5",
     "@pinia-plugin-persistedstate/nuxt": "^1.1.1",
@@ -24,6 +23,7 @@
   "dependencies": {
     "@pinia/nuxt": "^0.4.7",
     "pinia": "^2.0.33",
+    "pixi.js": "latest",
     "primeicons": "^6.0.1",
     "primevue": "^3.26.1",
     "typescript": "^5.0.3"

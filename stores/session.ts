@@ -21,7 +21,10 @@ export const useSessionStore = defineStore('session', {
             this.isAuthenticated = false
             navigateTo('/')
         },
-        async login(email: string, password: string) {
+        async login(email: string, password: string, student?: boolean) {
+            if (student) {
+                navigateTo('/student-portal')
+            }
             const resp = $fetch('http://localhost:3000/api3/login', {
                 headers: {
                     'Content-Type': 'application/json',

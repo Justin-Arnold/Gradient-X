@@ -80,7 +80,7 @@ const isStudent = computed(() => {
                     </div>
                 </div>
             </div>
-            <Button @click="login(teacherEmail, teacherPassword)" class="w-full justify-center !text-lg">
+            <Button @click="login(teacherEmail, teacherPassword, isStudent)" class="w-full justify-center !text-lg">
                 Log in as a {{isStudent ? 'student' : 'teacher'}}
             </Button>
             <div class="w-full my-6 flex items-center">
