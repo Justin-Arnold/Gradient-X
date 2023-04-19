@@ -37,9 +37,6 @@ export const useSessionStore = defineStore('session', () => {
                 redirect: null,
                 extAuth: false,
             }),
-            params: {
-                gcToken: '',
-            }
         });
         const data: any = await resp
         isAuthenticated.value = true
