@@ -1,5 +1,4 @@
 <template>
-    <h1 class="text-4xl flex items-center gap-2">{{ $route.params.name }}<Icon name="mdi:pencil" class="text-slate-600 p-1 hover:cursor-pointer"></Icon></h1>
     <TabMenu :model="customTabs" class="mb-4 border-b border-b-slate-400 pb-[0px]"></TabMenu>
     <NuxtPage></NuxtPage>
 </template>
