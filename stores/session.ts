@@ -25,7 +25,7 @@ export const useSessionStore = defineStore('session', {
             if (student) {
                 navigateTo('/student-portal')
             }
-            const resp = $fetch('http://localhost:3000/api3/login', {
+            const resp = $fetch('/api3/login', {
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -37,6 +37,9 @@ export const useSessionStore = defineStore('session', {
                     redirect: null,
                     extAuth: false,
                 }),
+                params: {
+                    gcToken: '',
+                }
             });
             const data: any = await resp
             this.isAuthenticated = true

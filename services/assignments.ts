@@ -1,5 +1,5 @@
-const baseUrl = 'http://localhost:3000/api3/listReport';
-const assignmentUrl = 'http://localhost:3000/api3/assignments';
+const baseUrl = '/api3/listReport';
+const assignmentUrl = '/api3/assignments';
 
 const assignmentsService = {
     async getAllAssignments(userId: string) {

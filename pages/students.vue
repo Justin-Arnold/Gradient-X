@@ -106,7 +106,7 @@ const isNestedRoute = computed(() => {
     return route.path !== '/students'
 })
 
-const {data, pending, refresh, error} = useFetch('http://localhost:3000/api3/listReport', {
+const {data, pending, refresh, error} = useFetch('/api3/listReport', {
     method: 'POST',
     credentials: 'include',
     headers: {
