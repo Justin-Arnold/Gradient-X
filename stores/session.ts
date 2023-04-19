@@ -1,4 +1,5 @@
-import { defineStore } from 'pinia'
+import { defineStore, storeToRefs } from 'pinia'
+import { useUserStore } from './user'
 
 
 interface State {
@@ -6,6 +7,9 @@ interface State {
     isAuthenticated: boolean,
     userId: string | null,
 }
+
+const userStore = useUserStore();
+const { userId } = storeToRefs(userStore);
 
 export const useSessionStore = defineStore('session', {
     state: (): State => {
@@ -25,7 +29,7 @@ export const useSessionStore = defineStore('session', {
             if (student) {
                 navigateTo('/student-portal')
             }
-            const resp = $fetch('/api3/login', {
+            const resp = await useFetch('/api3/login', {
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -43,7 +47,7 @@ export const useSessionStore = defineStore('session', {
             });
             const data: any = await resp
             this.isAuthenticated = true
-            this.userId = data._id || null
+            userId.value = data._id || null
             navigateTo('/home')
         },
     },
