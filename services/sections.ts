@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:3000/api3/listReport';
+const baseUrl = '/api3/listReport';
 
 const sectionsService = {
     async getAllSections() {

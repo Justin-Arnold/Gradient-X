@@ -161,7 +161,7 @@ const term = computed(() => {
     }
 })
 
-const { data, pending } = await useLazyFetch<AssignmentList>('http://localhost:3000/api3/listReport', {
+const { data, pending } = await useLazyFetch<AssignmentList>('/api3/listReport', {
     method: 'POST',
     credentials: 'include',
     headers: {
