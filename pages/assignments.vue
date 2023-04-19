@@ -77,7 +77,7 @@
                     </template>
                     <Column field="name" header="Name">
                         <template #body="slotProps">
-                            <NuxtLink :to="`/assignments/${slotProps.data.name}-${slotProps.data.key}/responses`" class="text-blue-500">{{slotProps.data.name}}</NuxtLink>
+                            <NuxtLink :to="`/assignments/${encodeURIComponent(slotProps.data.name)}-${slotProps.data.key}/responses`" class="text-blue-500">{{slotProps.data.name}}</NuxtLink>
                         </template>
                     </Column>
                     <Column field="assignment_type" header="Type"></Column>
@@ -150,7 +150,7 @@ const items = computed(() => {
     if(!route.path.includes('/')) return [];
     const splitRoute = route.path.split('/');
     if(!splitRoute[2]) return [];
-    return [{label: splitRoute[2].split('-')[0]}];
+    return [{label: decodeURIComponent(splitRoute[2].split('-')[0])}];
 });
 
 
