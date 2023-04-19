@@ -52,4 +52,6 @@ export const useSessionStore = defineStore('session', () => {
         logout,
         login,
     }
+}, {
+    persist: true,
 })
