@@ -1,15 +1,23 @@
-import { defineStore } from 'pinia'
+import { defineStore, storeToRefs } from 'pinia'
 
 
-interface State {
-    userId: string | null,
-}
+export const useUserStore = defineStore('user', () => {
+    const userId = ref('');
 
-export const useUserStore = defineStore('user', {
-    state: (): State => {
-        return {
-            userId: null,
-        }
-    },   
-    persist: true
+    const teacherProfile = ref<any>({});
+
+    async function updateTeacherProfile() {
+        const { data } = await useFetch('/api3/user/profile', {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            method: 'GET',
+        });
+    }
+
+    return {
+        userId,
+        teacherProfile,
+        updateTeacherProfile,
+    }
 })
