@@ -2,11 +2,13 @@ import { useSessionStore } from '~/stores/session'
 import {storeToRefs } from 'pinia'
 
 export default defineNuxtRouteMiddleware((to) => {
+    if (process.server) {
+        return;
+    }
     const sessionStore = useSessionStore()
     const { isAuthenticated } = storeToRefs(sessionStore)
 
-    console.log('1', to.name)
-    if (to.path === '/home' && !isAuthenticated.value) {
+    if (!isAuthenticated.value && to.name !== 'logintype') {
         console.error('Not Authenticated')
         return navigateTo('/login')
     }
