@@ -46,11 +46,11 @@ const selectedType = ref({
                     <div class="h-full flex flex-col gap-2 mt-2">
                         <div class="flex flex-col">
                             Name
-                            <InputText v-model="newName" />
+                            <TextInput v-model="newName" />
                         </div>
                         <div class="flex flex-col">
                             Description (optional)
-                            <InputText v-model="newDescription" />
+                            <TextInput v-model="newDescription" />
                         </div>
                         <div class="flex flex-col">
                             Grading Type
