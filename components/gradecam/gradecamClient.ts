@@ -74,3 +74,14 @@ export async function setLogLevel(level: number) {
     const gcsdk = await getGradecam();
     gcsdk._setLogLevel(level);
 }
+
+export function useVideoSize() {
+    const videoSize = ref({ width: 0, height: 0 });
+    (async () => {
+        const gcsdk = await getGradecam();
+        const handler = (width: number, height: number) => videoSize.value = { width, height };
+        onBeforeUnmount(() => gcsdk.unbind('videoSize', handler));
+        gcsdk.bind('videoSize', handler);
+    })();
+    return { videoSize };
+}

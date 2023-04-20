@@ -1,9 +1,13 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
-import { getGradecam } from './gradecamClient';
+import { getGradecam, useVideoSize } from './gradecamClient';
 import useScannerStore from '~/stores/scanner';
 
 const { showScanner } = storeToRefs(useScannerStore());
+const { videoSize } = useVideoSize();
+const videoRatio = computed(() => videoSize.value.width / videoSize.value.height || 1);
+const containerHeight = ref(320);
+const containerWidth = computed(() => containerHeight.value * videoRatio.value);
 const isFullScreen = ref(false);
 
 const gradecamContainer = ref<HTMLElement>();
@@ -12,7 +16,7 @@ const gradecamElement = ref<HTMLElement>();
 async function insertGradeCamElement() {
     const gradecam = await getGradecam();
     gradecamElement.value = gradecam.getElement({disable_camera: showScanner.value});
-    gradecamContainer.value?.append(gradecamElement.value);
+    gradecamContainer.value?.prepend(gradecamElement.value);
 }
 onMounted(() => {
     insertGradeCamElement();
@@ -23,21 +27,22 @@ onUpdated(insertGradeCamElement);
 <template>
     <Transition name="slide-down">
         <div
-            class="relative mb-4 mx-auto max-w-[600px]"
+            class="flex justify-center mb-4 -mt-4"
             v-show="showScanner"
         >
-            <div ref="gradecamContainer" class="h-[320px]"></div>
-            <Icon
-                @click="isFullScreen = !isFullScreen"
-                class="absolute top-4 right-4 settings-button text-white cursor-pointer p-2 bg-black/50 rounded-md"
-                name="mdi:arrow-expand"
-                size="36px"
-            />
-            <Icon
-                class="absolute bottom-4 right-4 settings-button text-white cursor-pointer p-2 bg-black/50 rounded-md"
-                name="ic:settings"
-                size="36px"
-            />
+            <div ref="gradecamContainer" class="relative" :style="{height: containerHeight + 'px', width: containerWidth + 'px'}">
+                <Icon
+                    @click="isFullScreen = !isFullScreen"
+                    class="absolute top-4 right-4 settings-button text-white cursor-pointer p-2 bg-black/50 rounded-md"
+                    name="mdi:arrow-expand"
+                    size="36px"
+                />
+                <Icon
+                    class="absolute bottom-4 right-4 settings-button text-white cursor-pointer p-2 bg-black/50 rounded-md"
+                    name="ic:settings"
+                    size="36px"
+                />
+            </div>
         </div>
     </Transition>
 </template>
