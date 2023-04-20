@@ -1,8 +1,11 @@
 <template>
     <NuxtLayout name="staff-portal">
         <div class="h-full over-flow-hidden flex flex-col gap-4">
-            <div class="card flex justify-between item-center">
-                <Breadcrumb :home="home" :model="items"/>
+            <div class="card flex item-center">
+                <Breadcrumb class="flex-grow" :home="home" :model="items"/>
+                <div class="flex items-end mr-4">
+                    <Icon @click="showScanner = !showScanner" class="cursor-pointer" name="material-symbols:camera-video" size="24px"></Icon>
+                </div>
                 <ModalButton ref="createButton">
                     <div class="h-full flex flex-col justify-center items-center">
                         <div class="text-xs">New Assignment</div>
@@ -100,9 +103,13 @@
 </template>
 
 <script setup lang="ts">;
+import { storeToRefs } from 'pinia';
 import { FilterMatchMode } from 'primevue/api';
 import type { AssignmentList, AssignmentFilters } from '~/types/assignments';
 import assignmentsService from '~/services/assignments';
+import useScannerStore from '~/stores/scanner';
+
+const { showScanner } = storeToRefs(useScannerStore());
 
 
 const createButton = ref(null)

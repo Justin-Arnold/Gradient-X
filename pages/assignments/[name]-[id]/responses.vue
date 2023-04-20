@@ -1,5 +1,6 @@
 <template>
     <div>
+        <TheGradeCamScanner />
         <ContextMenu ref="cm" />
         <DataTable
             :value="responses"
@@ -37,6 +38,7 @@
 <script setup lang="ts">
 import assignmentsService from '~/services/assignments';
 import { FilterMatchMode } from 'primevue/api';
+import TheGradeCamScanner from '~/components/gradecam/TheGradeCamScanner.vue';
 
 const responses = ref([]);
 
