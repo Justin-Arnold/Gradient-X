@@ -1,4 +1,4 @@
-import { FormMode, GradeCamAPIPublic } from "./gcsdk.model";
+import type { FormMode, GradeCamAPIPublic, IScan } from "./gcsdk.model";
 
 const gradecam: Promise<GradeCamAPIPublic> = new Promise((resolve, reject) => {
     if ('gradecam' in window && window.gradecam) {
@@ -65,6 +65,11 @@ export const pluginReady = new Promise<GradeCamAPIPublic>(async (resolve, reject
     });
 });
 
+export async function getCameraList() {
+    const gcsdk = await getGradecam();
+    return gcsdk.getCameraList();
+}
+
 export async function setMode(mode: Partial<FormMode>) {
     const gcsdk = await getGradecam();
     gcsdk.setMode(mode);
@@ -73,6 +78,14 @@ export async function setMode(mode: Partial<FormMode>) {
 export async function setLogLevel(level: number) {
     const gcsdk = await getGradecam();
     gcsdk._setLogLevel(level);
+}
+
+export function useScanEvents(onScan: (scan: IScan) => void) {
+    (async () => {
+        const gcsdk = await getGradecam();
+        gcsdk.bind('scan', onScan);
+        onBeforeUnmount(() => gcsdk.unbind('scan', onScan));
+    })();
 }
 
 export function useVideoSize() {

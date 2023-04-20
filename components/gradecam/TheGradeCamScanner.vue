@@ -1,25 +1,43 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
-import { getGradecam, useVideoSize } from './gradecamClient';
+import { getCameraList, getGradecam, useScanEvents, useVideoSize } from './gradecamClient';
 import useScannerStore from '~/stores/scanner';
 
-const { showScanner } = storeToRefs(useScannerStore());
+const { showScanner, options } = storeToRefs(useScannerStore());
 const { videoSize } = useVideoSize();
 const videoRatio = computed(() => videoSize.value.width / videoSize.value.height || 1);
 const containerHeight = ref(320);
 const containerWidth = computed(() => containerHeight.value * videoRatio.value);
 const isFullScreen = ref(false);
+const cameraList = ref<string[]>([]);
+const selectedCamera = computed({
+    get: () => options.value.selected_camera,
+    set: (value) => options.value.selected_camera = value,
+});
+const cameraSettingsOverlay = ref();
 
 const gradecamContainer = ref<HTMLElement>();
 const gradecamElement = ref<HTMLElement>();
+
+useScanEvents(function onScan(scan) {
+    console.log('scan', scan);
+});
 
 async function insertGradeCamElement() {
     const gradecam = await getGradecam();
     gradecamElement.value = gradecam.getElement({disable_camera: showScanner.value});
     gradecamContainer.value?.prepend(gradecamElement.value);
 }
+async function updateCameraList() {
+    cameraList.value = (await getCameraList()); // .map(label => ({label}));
+}
+function openCameraSelection($event: MouseEvent) {
+    updateCameraList();
+    cameraSettingsOverlay.value.toggle($event);
+}
 onMounted(() => {
     insertGradeCamElement();
+    updateCameraList();
 });
 onUpdated(insertGradeCamElement);
 </script>
@@ -38,10 +56,14 @@ onUpdated(insertGradeCamElement);
                     size="36px"
                 />
                 <Icon
+                    @click="openCameraSelection"
                     class="absolute bottom-4 right-4 settings-button text-white cursor-pointer p-2 bg-black/50 rounded-md"
-                    name="ic:settings"
+                    name="material-symbols:flip-camera-ios"
                     size="36px"
                 />
+                <PrimeOverlayPanel ref="cameraSettingsOverlay" id="overlay_menu" :model="cameraList" :popup="true">
+                    <PrimeDropdown v-model="selectedCamera" placeholder="Select your camera" :options="cameraList" />
+                </PrimeOverlayPanel>
             </div>
         </div>
     </Transition>
