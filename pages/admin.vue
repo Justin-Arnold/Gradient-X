@@ -27,7 +27,7 @@ const customTabs = ref([
             to: `/admin/teachers`
         },
         {
-            label: 'Schools',
+            label: 'Access Groups',
             to: '/admin/accessGroups'
         },
         {
