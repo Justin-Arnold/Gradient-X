@@ -86,7 +86,7 @@ onBeforeMount(async () => {
                 missed: response.missed.join(', '),
                 points: response.stats.points + '/' + response.stats.max_points,
                 score: ((response.stats.percentage_avg as number * 100) || 0).toFixed(0)+'%',
-                date: JSON.stringify(new Date(response.stats.turnedIn)),
+                date: Intl.DateTimeFormat(undefined, { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(response.stats.turnedIn)),
             }
         })
     }
