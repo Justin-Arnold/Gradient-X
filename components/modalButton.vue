@@ -4,7 +4,7 @@
       class="bg-sky-500 dark:bg-slate-600 text-white p-2 rounded cursor-pointer"
       @click="toggle"
       ref="button"
-      :class="isModalOpen ? 'animate-expand fixed z-[9999]' : 'animate-modal-close'"
+      :class="{ 'animate-expand': isModalOpen, 'fixed z-[9999]': isModalOpen }"
     >
         <div v-show="!isModalOpen" class="h-full">
             <slot></slot>
@@ -63,32 +63,5 @@
         left: 50%;
         background: white;
     }
-}
-.animate-modal-close {
-  animation: modal-close .2s ease-in-out both;
-}
-@keyframes modal-close {
-  from {
-      height: 400px;
-      transform: translate(-50%, -50%);
-      width: 400px;
-      top: 50%;
-      left: 50%;
-      background: white;
-      position: fixed;
-      z-index: 9999;
-  }
-  99% {
-      background: rgb(84, 140, 230);
-      height: 100px;
-      transform: translate(-0%, -0%);
-      width: 100px;
-      top: v-bind(topAnchor + 'px');
-      left: v-bind(leftAnchor + 'px');
-      position: fixed;
-      z-index: 9999;
-  }
-  100% {
-  }
 }
 </style>
