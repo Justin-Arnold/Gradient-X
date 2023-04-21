@@ -15,7 +15,28 @@ export const useSessionStore = defineStore('session', () => {
     const userStore = useUserStore();
     const { userId } = storeToRefs(userStore);
 
-    const isAuthenticated = ref(false)
+    const isAuthenticated = ref(false);
+    const { data: timeoutResponse, refresh: checkAuthentication } = useFetch<{ hasActiveSession: boolean }>('/timeout', {
+        method: 'GET',
+        credentials: 'include',
+    });
+    watch(timeoutResponse, (val) => {
+        isAuthenticated.value = val?.hasActiveSession || false;
+    });
+    async function checkAuthenticationAndRedirectIfNeeded() {
+        await checkAuthentication();
+        if (!isAuthenticated.value) {
+            navigateTo('/');
+        }
+    }
+    let sessionTimer: NodeJS.Timer;
+    async function startSessionTimer() {
+        await checkAuthenticationAndRedirectIfNeeded();
+        sessionTimer = setInterval(() => {
+            checkAuthenticationAndRedirectIfNeeded();
+        }, 30000)
+    }
+    startSessionTimer();
 
     function logout() {
         isAuthenticated.value = false
@@ -40,6 +61,7 @@ export const useSessionStore = defineStore('session', () => {
         });
         const data: any = await resp
         isAuthenticated.value = true
+        startSessionTimer();
         userId.value = data._id || null
         navigateTo('/home')
     }

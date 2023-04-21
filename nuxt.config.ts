@@ -17,12 +17,15 @@ export default defineNuxtConfig({
             "/api3": {
                 target:"http://localhost:3000/api3",
                 changeOrigin: true,
-                prependPath: true,
             },
             "/api": {
                 target:"http://localhost:3000/api",
                 changeOrigin: true,
-                prependPath: true,
+            },
+            "/timeout": {
+                target: "http://localhost:3000/timeout",
+                changeOrigin: true,
+                toProxy: true,
             }
         }
     },
