@@ -28,7 +28,7 @@ const assignmentsService = {
         });
         return resp
     },
-    async getResponsesById(id: string) {
+    async getResponsesById(id: string, scanState: 'any' | 'turnedIn' = 'turnedIn') {
         const resp = await $fetch(`${baseUrl}`, {
             method: 'POST',
             credentials: 'include',
@@ -45,7 +45,7 @@ const assignmentsService = {
                 },
                 list: {
                     assignment: id,
-                    scanState: 'turnedIn',
+                    scanState,
                     scannable: true,
                     term: 'current',
                     type: 'scan'
