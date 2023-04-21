@@ -88,7 +88,11 @@
                     <Column field="length" header="Length"></Column>
                     <Column field="turnedIn" header="Turned In"></Column>
                     <Column field="average" header="Average Score"></Column>
-                    <Column field="date" header="Date"></Column>
+                    <Column field="date" header="Date">
+                        <template #body="slotProps">
+                            {{Intl.DateTimeFormat(undefined, { dateStyle: 'medium'}).format(new Date(slotProps.data.date))}}
+                        </template>
+                    </Column>
                 </DataTable>
                 <div v-else>
                     <p>Loading...</p>
