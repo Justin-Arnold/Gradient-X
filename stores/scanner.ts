@@ -7,24 +7,27 @@ export default defineStore('scanner', () => {
     const showScanner = ref(false);
     const videoSize = ref({ width: 0, height: 0 });
 
-    watch(showScanner, async () => {
-        const gradecam = await getGradecam();
-        if (showScanner.value) {
-            gradecam.startCamera();
-        } else {
-            gradecam.stopCamera();
-        }
-    });
 
-    watch(options, async () => {
+    async function clientSideSetup() {
         const gradecam = await getGradecam();
-        gradecam.setOptions(options.value);
-    }, { deep: true });
 
-    (async () => {
-        const gradecam = await getGradecam();
+        watch(showScanner, async () => {
+            if (showScanner.value) {
+                gradecam.startCamera();
+            } else {
+                gradecam.stopCamera();
+            }
+        });
+
         options.value = gradecam.getOptions();
-    })();
+        watch(options, async () => {
+            gradecam.setOptions(options.value);
+        }, { deep: true });
+    }
+    if (process.client) {
+        clientSideSetup();
+    }
+
     return {
         options,
         showScanner,
