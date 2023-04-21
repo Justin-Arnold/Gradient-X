@@ -40,7 +40,7 @@ const selectedType = ref({
                     <div class="text-xs">Create Assignment</div>
                     <Icon icon="mdi:plus" class="text-2xl" />
                 </div>
-                <template #body>
+                <template #body="{ toggleModal }">
                     <h3 class="text-lg font-semibold">Create New Assignment</h3>
                     <hr/>
                     <div class="h-full flex flex-col gap-2 mt-2">
@@ -61,8 +61,8 @@ const selectedType = ref({
                             </SelectButton>
                         </div>
                         <div class="grow flex flex-col justify-end">
-                            <div class="flex justify-end gap-2 pb-6">
-                                <Button label="Cancel" outlined size="small"/>
+                            <div class="flex justify-end gap-2">
+                                <Button label="Cancel" @click="toggleModal" outlined size="small"/>
                                 <Button label="Create" @click="onSave" size="small"/>
                             </div>
                         </div>
@@ -74,8 +74,8 @@ const selectedType = ref({
                     <div class="text-xs">Manage Online Access</div>
                     <Icon icon="ic:round-computer" class="text-2xl" />
                 </div>
-                <template #body>
-                    <div class="text-black">
+                <template #body="{ toggleModal }">
+                    <div class="text-black" @click="toggleModal">
                         I am a modal
                     </div>
                 </template>

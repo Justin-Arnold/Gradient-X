@@ -10,7 +10,7 @@
                     <div class="h-full flex flex-col justify-center items-center">
                         <div class="text-xs">New Assignment</div>
                     </div>
-                    <template #body>
+                    <template #body="{ toggleModal }">
                         <h3 class="text-lg font-semibold">Create New Assignment</h3>
                         <hr/>
                         <div class="h-full flex flex-col gap-2 mt-2">
@@ -31,8 +31,8 @@
                                 </SelectButton>
                             </div>
                             <div class="grow flex flex-col justify-end">
-                                <div class="flex justify-end gap-2 pb-6">
-                                    <Button label="Cancel" outlined size="small"/>
+                                <div class="flex justify-end gap-2">
+                                    <Button label="Cancel" @click="toggleModal" outlined size="small"/>
                                     <Button label="Create" @click="onSave" size="small"/>
                                 </div>
                             </div>

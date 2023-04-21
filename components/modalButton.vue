@@ -9,8 +9,8 @@
         <div v-show="!isModalOpen" class="h-full">
             <slot></slot>
         </div>
-      <div v-if="isModalOpen" @click.stop class="h-full p-4 text-black w-full overflow-hidden hover:cursor-default">
-          <slot  name="body"></slot>
+      <div v-if="isModalOpen" @click.stop class="h-full flex flex-col p-4 text-black w-full overflow-hidden hover:cursor-default">
+          <slot :toggleModal="toggle" name="body"></slot>
       </div>
     </div>
     <div v-if="isModalOpen" class="h-full aspect-square bg-neutral-200 shadow-inner shadow-neutral-600 rounded">.</div>
