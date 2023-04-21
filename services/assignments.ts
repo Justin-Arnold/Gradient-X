@@ -47,7 +47,6 @@ const assignmentsService = {
                     assignment: id,
                     scanState: 'turnedIn',
                     scannable: true,
-                    section: '63ed217df5c09b38d3be2a44',
                     term: 'current',
                     type: 'scan'
                 }
