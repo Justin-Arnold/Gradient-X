@@ -1,6 +1,15 @@
 <template>
     <div>
-        <TheGradeCamScanner />
+        <div class="mb-4">
+            <div class="flex items-center">
+                <FrugalSvgQRCode/>
+                <div class="ml-4 gap-4">
+                    <div>QR Code to register for exam</div>
+                    <Button size="small">Print</Button>
+                    <Button size="small">Copy Link</Button>
+                </div>
+            </div>
+        </div>
         <ContextMenu ref="cm" />
         <DataTable
             :value="responses"
@@ -73,7 +82,7 @@ const onRowContextMenu = (event: any) => {
 
 onBeforeMount(async () => {
     if (route.params.id) {
-        const resp: any= await assignmentsService.getResponsesById(route.params.id as string)
+        const resp: any= await assignmentsService.getResponsesById(route.params.id as string, 'any')
         console.log(resp)
         responses.value = resp.filteredItems.map((response: any) => {
             return {

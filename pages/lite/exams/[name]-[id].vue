@@ -25,6 +25,10 @@ const customTabs = ref([
             to: `${basePath}/administer`
         },
         {
+            label: 'Examinees',
+            to: `${basePath}/examinees`
+        },
+        {
             label: 'Key',
             to: `${basePath}/key`,
         },
