@@ -21,7 +21,7 @@
                             </div>
                             <div class="flex gap-2 items-center">
                                 <div class="flex items-center whitespace-nowrap text-lg font-bold gap-1"><PrimeInputText :value="autoScore || each.value" class="h-8 !m-0 w-10"/><span class="text-slate-800">/{{each.points}} pts</span></div>
-                                <span class="px-3 rounded-full" :class="each.value > 0 ? 'bg-emerald-400 text-emerald-900' : 'text-red-900 bg-red-400'">{{ !!each.value ? 'Graded' : 'Not Graded' }}</span>
+                                <span class="px-3 rounded-full whitespace-nowrap" :class="each.value > 0 ? 'bg-emerald-400 text-emerald-900' : 'text-red-900 bg-red-400'">{{ each.value > 0 ? 'Graded' : 'Not Graded' }}</span>
                                 <span class="flex justify-center items-center gap-2 bg-sky-400 h-8 w-32 rounded text-white cursor-pointer overflow-hidden">
                                     <p class="grow text-center" @click="autoGrade('Write A short 4 paragraph mini-essay on the native habitat of the narwhal', each.student_text.replace(/<\/?[^>]+(>|$)/g, ''), each.points)">
                                         {{ isGrading ? '...' : 'Auto Grade'}}
@@ -32,7 +32,7 @@
                             </div>
                         </div>
                         <div class="">Answer:</div>
-                        <div v-html="each.student_text" class="box-border border-dotted border-2 border-sky-400 p-2 rounded font-medium !max-h-80 overflow-auto"></div>
+                        <div v-html="each.student_text" class="px-2 mb-2 rounded font-medium !max-h-80 overflow-auto bg-white shadow-inner shadow-neutral-300"></div>
                         <div>Teacher Feedback:</div>
                         <textarea :value="autoFeedback || each.teacher_text.replace(/<\/?[^>]+(>|$)/g, '')" class="grow p-2 border border-slate-700 rounded"></textarea>
                     </div>
