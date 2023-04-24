@@ -1,11 +1,11 @@
 <template>
     <div class="h-full flex">
-        <div class="bg-sky-500 dark:bg-slate-900 p-2 h-full w-16 flex flex-col items-center z-[998] flex-none">
+        <div class="bg-sky-500 dark:bg-slate-900 p-2 h-full w-16 flex flex-col items-center z-[998] flex-none print:hidden">
             <nuxt-img
                 src="https://gcdnb.pbrd.co/images/t2Dd3ktfvy1R.png?o=1"
                 class="rounded aspect-square"
             />
-            <nav class="flex flex-col w-full gap-2 mt-12">
+            <nav class="flex flex-col w-full mt-8">
                 <NuxtLink
                     v-for="each, index in topLevelRoutes"
                     :key="index"
@@ -14,11 +14,13 @@
                     active-class="bg-slate-200/30 rounded-xl"
                     v-tooltip="each.name"
                 >
-                    <Icon :name="each.icon" size="28px"></Icon>
+                    <Icon :name="each.icon" size="24px"></Icon>
                 </NuxtLink>
             </nav>
             <div class="flex flex-col grow">
-                <div class="grow"></div>
+                <div class="grow flex flex-col justify-end items-center mb-2">
+                    <Icon name="mdi:plus" size="22px" class="text-slate-300"></Icon>
+                </div>
                 <div
                     title="Log Out"
                     @click="logout"

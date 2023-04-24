@@ -78,6 +78,7 @@
                             </div>
                         </div>
                     </template>
+                    <Column selectionMode="multiple" style="width: 3em"></Column>
                     <Column field="name" header="Name">
                         <template #body="slotProps">
                             <NuxtLink :to="`/assignments/${encodeURIComponent(slotProps.data.name)}-${slotProps.data.key}/responses`" class="text-blue-500">{{slotProps.data.name}}</NuxtLink>
@@ -376,7 +377,7 @@ const toggleFilterOverlayPanel = (event: any) => {
 
 
 .p-breadcrumb {
-    @apply !bg-transparent border-none p-0 text-3xl py-2 ;
+    @apply !bg-transparent border-none p-0 py-2 ;
 }
 
 :deep(.p-tabmenu) {

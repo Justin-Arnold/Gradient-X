@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@pinia/nuxt": "^0.4.7",
+    "openai": "^3.2.1",
     "pinia": "^2.0.33",
     "pixi.js": "latest",
     "primeicons": "^6.0.1",

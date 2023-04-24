@@ -18,6 +18,11 @@ const customTabs = ref([
         },
 ])
 
+const isSubNestedRoute = computed(() => {
+    console.log(route.fullPath.split('/'))
+    return route.fullPath.split('/').length > 4
+})
+
 </script>
 
 <style>
