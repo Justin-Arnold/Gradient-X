@@ -377,7 +377,7 @@ const toggleFilterOverlayPanel = (event: any) => {
 
 
 .p-breadcrumb {
-    @apply !bg-transparent border-none p-0 text-3xl py-2 ;
+    @apply !bg-transparent border-none p-0 py-2 ;
 }
 
 :deep(.p-tabmenu) {

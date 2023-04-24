@@ -13,6 +13,7 @@ import SelectButton from 'primevue/selectbutton';
 import Dropdown from 'primevue/dropdown';
 import OverlayPanel from 'primevue/overlaypanel';
 import Tooltip from 'primevue/tooltip';
+import ProgressBar from 'primevue/progressbar';
 
 export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.use(PrimeVue, {ripple: true});
@@ -28,6 +29,6 @@ export default defineNuxtPlugin((nuxtApp) => {
     nuxtApp.vueApp.component('SelectButton', SelectButton);
     nuxtApp.vueApp.component('PrimeDropdown', Dropdown);
     nuxtApp.vueApp.component('PrimeOverlayPanel', OverlayPanel);
+    nuxtApp.vueApp.component('PrimeProgressBar', ProgressBar);
     nuxtApp.vueApp.directive('tooltip', Tooltip);
-    //other components that you need
 });

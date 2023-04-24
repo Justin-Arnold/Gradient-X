@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="!isNestedRoute">
         <TheGradeCamScanner />
         <ContextMenu ref="cm" />
         <DataTable
@@ -24,7 +24,11 @@
                     </span>
                 </div>
             </template>
-            <Column field="student" header="Student"></Column>
+            <Column field="student" header="Student">
+                        <template #body="slotProps">
+                            <NuxtLink :to="`${route.fullPath}/${slotProps.data.student}-${slotProps.data.key}`" class="text-blue-500">{{slotProps.data.student}}</NuxtLink>
+                        </template>
+                    </Column>
             <Column field="studentId" header="ID"></Column>
             <Column field="class" header="Class"></Column>
             <Column field="missed" header="Missed"></Column>
@@ -33,6 +37,7 @@
             <Column field="date" header="Turned In"></Column>
         </DataTable>
     </div>
+    <NuxtPage></NuxtPage>
 </template>
 
 <script setup lang="ts">
@@ -44,6 +49,11 @@ const responses = ref([]);
 
 const route = useRoute()
 
+const isNestedRoute = computed(() => {
+    const path = route.path
+    const pathLength = path.split('/').length
+    return pathLength > 4
+})
 definePageMeta({
     tabs: [
         {
