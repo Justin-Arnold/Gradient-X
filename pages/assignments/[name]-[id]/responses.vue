@@ -81,6 +81,8 @@ const onRowContextMenu = (event: any) => {
     cm.value.show(event.originalEvent);
 };
 
+provide('responses', responses)
+
 
 onBeforeMount(async () => {
     console.log(route.params.id)
