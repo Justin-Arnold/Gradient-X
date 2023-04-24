@@ -48,10 +48,8 @@
                             <Button @click="toggleFilterOverlayPanel" icon="pi pi-angle-down" class="h-8" label="Filters"></Button>
                             <PrimeOverlayPanel ref="filterOverlayPanel">
                                 <div class="">
-                                    <div class="overflow-hidden px-2">
-                                        <h3 class="text-lg">Filters</h3>
-                                        <hr>
-                                        <div class="p-float-label mt-12">
+                                    <div class="p-2">
+                                        <div class="p-float-label">
                                             <PrimeDropdown v-model="filters.view" :options="filterOptions.view" optionLabel="label" optionValue="value" class="w-full"></PrimeDropdown>
                                             <label>View</label>
                                         </div>
