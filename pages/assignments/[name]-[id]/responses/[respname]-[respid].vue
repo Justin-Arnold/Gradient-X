@@ -7,6 +7,7 @@
                 <div>Score: {{ !data ? '?' : data.score }}/{{ !data ? '?' : data.max_score }}</div>
             </div><br/>
             <PrimeProgressBar :value="data ? Math.round((data.score / data.max_score) * 100) : 0" class="w-60"></PrimeProgressBar>
+            {{ data.score }}
         </div>
 
         <div class="grow px-4 flex flex-col gap-2 overflow-auto h-full">
@@ -20,7 +21,7 @@
                                 <p class="text-xs rounded text-slate-500">Write A short 4 paragraph mini-essay on the native habitat of the narwhal (Open Response)</p>
                             </div>
                             <div class="flex gap-2 items-center">
-                                <div class="flex items-center whitespace-nowrap text-lg font-bold gap-1"><PrimeInputText :value="autoScore || each.value" class="h-8 !m-0 w-10"/><span class="text-slate-800">/{{each.points}} pts</span></div>
+                                <div class="flex items-center whitespace-nowrap text-lg font-bold gap-1"><PrimeInputText :value="autoScore || each.value" @input="updateScore" class="h-8 !m-0 w-10"/><span class="text-slate-800">/{{each.points}} pts</span></div>
                                 <span class="px-3 rounded-full whitespace-nowrap" :class="each.value > 0 ? 'bg-emerald-400 text-emerald-900' : 'text-red-900 bg-red-400'">{{ each.value > 0 ? 'Graded' : 'Not Graded' }}</span>
                                 <span class="flex justify-center items-center gap-2 bg-sky-400 h-8 w-32 rounded text-white cursor-pointer overflow-hidden">
                                     <p class="grow text-center" @click="autoGrade('Write A short 4 paragraph mini-essay on the native habitat of the narwhal', each.student_text.replace(/<\/?[^>]+(>|$)/g, ''), each.points)">
@@ -124,7 +125,7 @@ function getColorClass(index: number, each: any): string {
 }
 
 
-const { pending, data} = useFetch(`/api3/assignments/${route.params.id}/scans/${route.params.respid}/questions?create=true`, {
+const { refresh, data} = useFetch(`/api3/assignments/${route.params.id}/scans/${route.params.respid}/questions?create=true`, {
 
 })
 const responses = inject('responses')
@@ -158,6 +159,20 @@ async function autoGrade(question: string, answer: string, max: number) {
         autoScore.value = completionToJsonObj.score;
         autoFeedback.value = completionToJsonObj.feedback;
         isGrading.value = false;
+}
+
+async function updateScore(event: any) {
+    if (!event.data) return
+    console.log('input event', event.data, data.value.questions[1].value );
+    data.value.questions[1].value = event.data
+    console.log(data)
+    const { pending, data: updateData} = await useFetch(`/api3/assignments/${route.params.id}/scans/${route.params.respid}/questions?create=true`, {
+        method: 'PUT',
+        body: data
+    })
+    console.log('updated', updateData);
+    refresh()
+
 }
 
 </script>
