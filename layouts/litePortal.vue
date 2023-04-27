@@ -59,9 +59,19 @@ const isOpen = ref(false)
 
 const topLevelRoutes = [
     {
-        name: 'Exams',
+        name: 'Home',
         icon: 'ic:round-home',
+        route: '/lite/home'
+    },
+    {
+        name: 'Exams',
+        icon: 'mdi:paper',
         route: '/lite/exams'
+    },
+    {
+        name: 'Reports',
+        icon: 'mdi:graph-bar',
+        route: '/reports'
     },
 ]
 

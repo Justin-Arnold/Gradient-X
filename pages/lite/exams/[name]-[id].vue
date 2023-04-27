@@ -3,6 +3,9 @@
         <div class="card flex items-center">
             <PrimeInputText class="flex-shrink-0" type="text" v-model="examName" />
             <div class="flex-grow"></div>
+            <div class="flex items-end mr-4">
+                <Icon @click="showScanner = !showScanner" class="cursor-pointer" name="material-symbols:camera-video" size="24px"></Icon>
+            </div>
         </div>
         <TabMenu :model="customTabs" class="mb-4 border-b border-b-slate-400 pb-[0px]"></TabMenu>
         <NuxtPage></NuxtPage>
@@ -10,6 +13,8 @@
 </template>
 
 <script setup lang="ts">
+import { storeToRefs } from 'pinia';
+import useScannerStore from '~/stores/scanner';
 
 const route = useRoute()
 console.log(route.params)
@@ -17,6 +22,7 @@ const examName = ref(route.params.name);
 const examId = computed(() => route.params.id);
 
 // const exam = useLazyFetch(`/api3/assignments/${examId.value}`)
+const { showScanner } = storeToRefs(useScannerStore());
 
 const basePath = route.fullPath.split('/').slice(0, -1).join('/')
 const customTabs = ref([
@@ -29,7 +35,7 @@ const customTabs = ref([
             to: `${basePath}/examinees`
         },
         {
-            label: 'Key',
+            label: 'Answers',
             to: `${basePath}/key`,
         },
         {
