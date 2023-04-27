@@ -8,8 +8,8 @@ export default defineNuxtRouteMiddleware((to) => {
     const sessionStore = useSessionStore()
     const { isAuthenticated } = storeToRefs(sessionStore)
 
-    if (!isAuthenticated.value && to.name !== 'logintype') {
-        console.error('Not Authenticated')
-        return navigateTo('/login')
-    }
+    // if (!isAuthenticated.value && to.name !== 'logintype' || to.name !== 'student-portal') {
+    //     console.error('Not Authenticated')
+    //     return navigateTo('/login')
+    // }
 })

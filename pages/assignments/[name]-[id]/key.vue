@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="rounded-lg bg-neutral-50 p-2 h-full shadow-md overflow-hidden">
         <NuxtLayout name="data-view">
             <ContextMenu ref="cm" />
             <DataTable
@@ -14,7 +14,7 @@
                 :rows="20"
                 scrollable
                 scrollHeight="100%"
-                class="flex flex-col max-h-full"
+                class="flex flex-col h-full"
             >
                 <Column field="label" header="Q #"></Column>
                 <Column field="choices" header="Answer">
@@ -110,3 +110,10 @@ onBeforeMount(async () => {
 })
 
 </script>
+
+<style scoped>
+
+:deep(.p-datatable-wrapper) {
+    @apply grow;
+}
+</style>

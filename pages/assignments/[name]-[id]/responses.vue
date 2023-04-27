@@ -1,5 +1,5 @@
 <template>
-    <div v-if="!isNestedRoute">
+    <div v-if="!isNestedRoute" class="rounded-lg bg-neutral-50 p-2 h-full shadow-md overflow-hidden">
         <TheGradeCamScanner />
         <ContextMenu ref="cm" />
         <DataTable
@@ -14,7 +14,7 @@
             :rows="20"
             scrollable
             scrollHeight="100%"
-            class="flex flex-col max-h-full"
+            class="flex flex-col h-full"
         >
             <template #header>
                 <div class="flex justify-end -m-2">
@@ -105,3 +105,10 @@ onBeforeMount(async () => {
 })
 
 </script>
+
+<style scoped>
+
+:deep(.p-datatable-wrapper) {
+    @apply grow;
+}
+</style>

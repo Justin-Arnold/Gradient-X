@@ -16,6 +16,18 @@ const customTabs = ref([
             label: 'Responses',
             to: `${basePath}/responses`
         },
+        {
+            label: 'Attachments',
+            to: `${basePath}/attachments`
+        },
+        {
+            label: 'Standards',
+            to: `${basePath}/standards`
+        },
+        {
+            label: 'Reports',
+            to: `${basePath}/reports`
+        },
 ])
 
 const isSubNestedRoute = computed(() => {

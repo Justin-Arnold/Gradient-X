@@ -7,7 +7,6 @@
                 <div>Score: {{ !data ? '?' : data.score }}/{{ !data ? '?' : data.max_score }}</div>
             </div><br/>
             <PrimeProgressBar :value="data ? Math.round((data.score / data.max_score) * 100) : 0" class="w-60"></PrimeProgressBar>
-            {{ data.score }}
         </div>
 
         <div class="grow px-4 flex flex-col gap-2 overflow-auto h-full">
@@ -144,7 +143,7 @@ async function autoGrade(question: string, answer: string, max: number) {
         const data = await $fetch('https://api.openai.com/v1/chat/completions', {
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer SK KEY`,
+                'Authorization': `Bearer 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`,
             },
             method: 'POST',
             body: {
@@ -152,10 +151,8 @@ async function autoGrade(question: string, answer: string, max: number) {
                 messages: [{'role':'user', 'content': prompt}],
             },
         });
-        console.log('grade data', data);
         const completion = data.choices[0].message.content;
         const completionToJsonObj: {score: number, feedback: string} = JSON.parse(completion);
-        console.log('completion', completionToJsonObj);
         autoScore.value = completionToJsonObj.score;
         autoFeedback.value = completionToJsonObj.feedback;
         isGrading.value = false;
@@ -165,12 +162,10 @@ async function updateScore(event: any) {
     if (!event.data) return
     console.log('input event', event.data, data.value.questions[1].value );
     data.value.questions[1].value = event.data
-    console.log(data)
     const { pending, data: updateData} = await useFetch(`/api3/assignments/${route.params.id}/scans/${route.params.respid}/questions?create=true`, {
         method: 'PUT',
         body: data
     })
-    console.log('updated', updateData);
     refresh()
 
 }

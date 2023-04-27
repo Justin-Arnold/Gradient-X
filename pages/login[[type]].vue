@@ -39,7 +39,7 @@ const isStudent = computed(() => {
                 <div class="flex items-center gap-1 text-lg">
                     <nuxt-img src="logo.png" class="aspect-square h-16"/>
                     <h1 class="font-bold text-xl text-slate-800">
-                        Gradient
+                        Gradient X
                     </h1>
                 </div>
                 <Button @click="changeLoginType" size="small" class="h-1/2" outlined>

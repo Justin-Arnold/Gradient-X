@@ -175,6 +175,7 @@ const cm = ref();
 const selectedRows: Ref<any[]> = ref([]);
 const selectedRow = ref();
 const menuModel = ref([
+{label: 'Share', icon: 'pi pi-fw pi-user-plus', command: () => editAssignments(selectedRows.value)},
     {label: 'Edit', icon: 'pi pi-fw pi-file-edit', command: () => editAssignments(selectedRows.value)},
     {label: 'Clone', icon: 'pi pi-fw pi-clone', command: () => cloneAssignments(selectedRows.value)},
     {label: 'Archive', icon: 'pi pi-fw pi-inbox', command: () => archiveAssignments(selectedRows.value)},

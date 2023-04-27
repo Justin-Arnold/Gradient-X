@@ -90,15 +90,15 @@ function startGame() {
 
 
 function handleKeyDown(event) {
-    console.log(event.code);
   if (event.code === "Space") {
-    startGame();
+    startGame()
   }
 }
 
 function handleMouseDown(event) {
-  if (event.button === 0) { // left mouse button
-    startGame();
+  if (event.button === 0) {
+    bird.y = bird.y - 100// left mouse button
+
   }
 }
 
@@ -131,11 +131,12 @@ function setup() {
 
 function update(delta: number) {
   // apply gravity to bird
-    birdVelocity += 0.001;
+    birdVelocity = 1;
     bird.y += birdVelocity;
 
   // check for collision between bird and pipes
     pipes.children.forEach((pipe: any) => {
+        console.log('pipes')
         if (bird.x + bird.width > pipe.x && bird.x < pipe.x + pipe.width) {
         if (bird.y < pipe.top || bird.y + bird.height > pipe.bottom) {
             // game over

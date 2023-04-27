@@ -45,6 +45,7 @@ export const useSessionStore = defineStore('session', () => {
     async function login(email: string, password: string, student?: boolean) {
         if (student) {
             navigateTo('/student-portal')
+            return
         }
         const resp = await useFetch('/api3/login', {
             headers: {
